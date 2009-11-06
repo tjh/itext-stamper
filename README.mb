@@ -1,0 +1,29 @@
+Summary
+===
+
+Script to use iText for stamping existing PDF files
+
+
+RVM
+---
+
+Uses RVM to run jruby to integrate with the iText library JAR
+
+
+Delayed Job
+---
+
+    Post.print
+
+    class Post < ActiveRecord::Base
+      def print
+        system('./runner.sh', title)
+        send_email
+      end
+    
+      handle_asynchronously :print
+    end
+    
+or
+
+    Post.find(1).send_later :print
